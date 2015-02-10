@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
-public class PartsListController implements ActionListener
+public class PartsUnitPartController implements ActionListener
 {
 	private PartsModel model;
 	
-	public PartsListController(PartsModel model)
+	public PartsUnitPartController(PartsModel model)
 	{
 		this.model = model;
 	}
@@ -17,7 +17,7 @@ public class PartsListController implements ActionListener
 	public void actionPerformed(ActionEvent a)
 	{
         JComboBox cb = (JComboBox)a.getSource();
-        String unitName = (String)cb.getSelectedItem();
-        model.setUnitPart(unitName);
+        String partName = (String)cb.getSelectedItem();
+        model.setUnitPart(partName);
 	}
 }

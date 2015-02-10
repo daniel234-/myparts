@@ -1,18 +1,18 @@
 package parts;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class PartsModel 
 {
 	private int width, height;
-	private String[][] nameArray = new String[12][7];
+	private String[][] nameArray = new String[12][8];
 	private int status = 1;
 	private String text = "";
 	private int mode = 0;
 	private Integer newid;
 	private int idAdder = 0;
 	private String unitPart = "";
+	private String location = "";
 	
 	public PartsModel()
 	{
@@ -28,12 +28,12 @@ public class PartsModel
 		}
 		if(nameArray[n][5] == null)
 		{
-			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][6]);
+			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][6] + ", " + nameArray[n][7]);
 			return this.text;
 		}
 		else
 		{
-			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][5] + ", " + nameArray[n][6]);
+			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][5] + ", " + nameArray[n][6] + ", " + nameArray[n][7]);
 			return this.text;
 		}
 	}
@@ -51,6 +51,7 @@ public class PartsModel
 				nameArray[a][3] = amount;
 				nameArray[a][4] = this.getUnitPart();
 				nameArray[a][6] = external;
+				nameArray[a][7] = this.getLocation();
 				if(vendor.equalsIgnoreCase(""))
 				{
 					a = nameArray.length;
@@ -77,7 +78,7 @@ public class PartsModel
 		{
 			if(g == index)
 			{
-				text = (nameArray[g][0] + " " + nameArray[g][1] + " " + nameArray[g][2] + " " + nameArray[g][3] + " " + nameArray[g][4] + " " + nameArray[g][5] + " " + nameArray[g][6]);
+				text = (nameArray[g][0] + " " + nameArray[g][1] + " " + nameArray[g][2] + " " + nameArray[g][3] + " " + nameArray[g][4] + " " + nameArray[g][5] + " " + nameArray[g][6] + " " + nameArray[g][7]);
 				return text;
 			}
 		}
@@ -102,6 +103,7 @@ public class PartsModel
 				nameArray[e][4] = this.getUnitPart();
 				nameArray[e][5] = vendor;
 				nameArray[e][6] = external;
+				nameArray[e][7] = this.getLocation();
 				return 1;
 			}
 		}
@@ -126,6 +128,7 @@ public class PartsModel
 				nameArray[d][4] = null;
 				nameArray[d][5] = null;
 				nameArray[d][6] = null;
+				nameArray[d][7] = null;
 			}
 			else if(found == 1 && d < nameArray.length - 1)
 			{
@@ -136,6 +139,7 @@ public class PartsModel
 				nameArray[d][4] = nameArray[d+1][4];
 				nameArray[d][5] = nameArray[d+1][5];
 				nameArray[d][6] = nameArray[d+1][6];
+				nameArray[d][7] = nameArray[d+1][7];
 			}
 			else if(nameArray[d][1].equalsIgnoreCase(text))
 			{
@@ -147,6 +151,7 @@ public class PartsModel
 				nameArray[d][4] = nameArray[d+1][4];
 				nameArray[d][5] = nameArray[d+1][5];
 				nameArray[d][6] = nameArray[d+1][6];
+				nameArray[d][7] = nameArray[d+1][7];
 			}
 		}
 	}
@@ -167,9 +172,16 @@ public class PartsModel
 	
 	public int checkPart(String name, String number, String amount, String external, int mode)
 	{
+		System.out.println(this.getUnitPart());
+		System.out.println(this.getLocation());
 		if(this.getUnitPart().equalsIgnoreCase("Unknown"))
 		{
-			System.out.println("Part unit cannot be Unknown");
+			System.out.println("Part unit cannot be Unknown.");
+			return 1;
+		}
+		if(this.getLocation().equalsIgnoreCase("Unknown"))
+		{
+			System.out.println("Location cannot be Unknown.");
 			return 1;
 		}
 		if(name.equalsIgnoreCase(""))
@@ -243,8 +255,18 @@ public class PartsModel
 	{
 		this.unitPart = part;
 	}
+	
+	public String getLocation()
+	{
+		return this.location;
+	}
+	
+	public void setLocation(String location)
+	{
+		this.location = location;
+	}
 
-	public int getWidth() 
+	public int getWidth()
 	{
 		return this.width;
 	}

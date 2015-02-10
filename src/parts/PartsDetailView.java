@@ -15,13 +15,15 @@ public class PartsDetailView extends JFrame
 	private PartsModel model;
 	private GridBagLayout partLayout;
 	private JButton finishButton;
-	private JTextField field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13;
+	private JTextField field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14;
 	private GridBagConstraints g = new GridBagConstraints();
 	private int mode;
 	private String copy;
 	private Font bigFont = new Font("Serif", Font.PLAIN, 20);
 	private String[] units = {"Linear Feet", "Pieces", "Unknown"};
 	private JComboBox unitList = new JComboBox(units);
+	private String[] locations = {"Facility 1 Warehouse 1", "Facility 1 Warehouse 2", "Facility 2","Unknown"};
+	private JComboBox locationList = new JComboBox(locations);
 	
 	public PartsDetailView(PartsModel model)
 	{
@@ -35,7 +37,7 @@ public class PartsDetailView extends JFrame
 		finishButton.setFont(bigFont);
 		g.fill = GridBagConstraints.NONE;
 		g.gridx = 0;
-		g.gridy = 7;
+		g.gridy = 8;
 		g.gridwidth = 3;
 		g.anchor = GridBagConstraints.PAGE_END;
 		this.add(finishButton,g);
@@ -116,13 +118,13 @@ public class PartsDetailView extends JFrame
 		g.gridy = 4;
 		g.gridwidth = 1;
 		this.add(field9,g);
-		
+
 		unitList.setSelectedIndex(2);
 		g.gridx = 2;
 		g.gridy = 4;
 		g.gridwidth = 1;
 		this.add(unitList,g);
-		
+
 		field10 = new JTextField(" Part Vendor:");
 		field10.setFont(bigFont);
 		field10.setEditable(false);
@@ -154,6 +156,20 @@ public class PartsDetailView extends JFrame
 		g.gridy = 6;
 		g.gridwidth = 1;
 		this.add(field13,g);
+		
+		field14 = new JTextField("Part Location:");
+		field14.setFont(bigFont);
+		field14.setEditable(false);
+		g.gridx = 0;
+		g.gridy = 7;
+		g.gridwidth = 1;
+		this.add(field14,g);
+		
+		locationList.setSelectedIndex(3);
+		g.gridx = 1;
+		g.gridy = 7;
+		g.gridwidth = 1;
+		this.add(locationList,g);
 		
 		this.setVisible(true);
 		model.canOpen(0);
@@ -269,7 +285,7 @@ public class PartsDetailView extends JFrame
 		g.gridy = 5;
 		g.gridwidth = 1;
 		this.add(field11,g);
-		
+
 		field12 = new JTextField("Part External #:");
 		field12.setFont(bigFont);
 		field12.setEditable(false);
@@ -285,6 +301,39 @@ public class PartsDetailView extends JFrame
 		g.gridy = 6;
 		g.gridwidth = 1;
 		this.add(field13,g);
+		
+		field14 = new JTextField("Part Location:");
+		field14.setFont(bigFont);
+		field14.setEditable(false);
+		g.gridx = 0;
+		g.gridy = 7;
+		g.gridwidth = 1;
+		this.add(field14,g);
+
+		scan.next();
+		String locationName = scan.next();
+		
+		if(locationName.equalsIgnoreCase("2"))
+		{
+			locationList.setSelectedIndex(2);
+		}
+		else
+		{
+			scan.next();
+			locationName = scan.next();
+			if(locationName.equalsIgnoreCase("1"))
+			{
+				locationList.setSelectedIndex(0);
+			}
+			else
+			{
+				locationList.setSelectedIndex(1);
+			}
+		}
+		g.gridx = 1;
+		g.gridy = 7;
+		g.gridwidth = 1;
+		this.add(locationList,g);
 		
 		scan.close();
 		this.setVisible(true);
@@ -344,13 +393,15 @@ public class PartsDetailView extends JFrame
 		this.remove(field11);
 		this.remove(field12);
 		this.remove(field13);
+		this.remove(field14);
 		model.canOpen(1);
 	}
 	
-	public void registerListeners(PartsButtonController controller1, PartsWindowController controller2, PartsListController controller3) 
+	public void registerListeners(PartsButtonController controller1, PartsWindowController controller2, PartsUnitPartController controller3, PartsLocationController controller4) 
 	{
 		this.addWindowListener(controller2);
 		finishButton.addActionListener(controller1);
 		unitList.addActionListener(controller3);
+		locationList.addActionListener(controller4);
 	}
 }
