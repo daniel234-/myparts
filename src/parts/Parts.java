@@ -17,9 +17,10 @@ public class Parts
 		PartsView view1 = new PartsView(model, view2);
 		PartsButtonController controller1 = new PartsButtonController(view1, view2, model);
 		PartsWindowController controller2 = new PartsWindowController(view2);
+		PartsListController controller3 = new PartsListController(model);
 		
 		view1.registerListeners(controller1);
-		view2.registerListeners(controller1,controller2);
+		view2.registerListeners(controller1,controller2,controller3);
 		
 		view1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		view1.setSize(600,480);
