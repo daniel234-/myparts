@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class PartsModel 
 {
 	private int width, height;
-	private String[][] nameArray = new String[12][6];
+	private String[][] nameArray = new String[12][7];
 	private int status = 1;
 	private String text = "";
 	private int mode = 0;
@@ -22,23 +22,23 @@ public class PartsModel
 	
 	public String refresh(int n)
 	{
-		if(nameArray[n][0] == null)
+		if(nameArray[n][1] == null)
 		{
 			return " ";
 		}
-		if(nameArray[n][4] == null)
+		if(nameArray[n][5] == null)
 		{
-			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + " " + nameArray[n][3]);
+			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][6]);
 			return this.text;
 		}
 		else
 		{
-			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][5]);
+			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][5] + ", " + nameArray[n][6]);
 			return this.text;
 		}
 	}
 	
-	public void addPart(String id, String name, String number, String amount, String vendor)
+	public void addPart(String id, String name, String number, String amount, String vendor, String external)
 	{
 		for(int a = 0; a < nameArray.length; a++)
 		{
@@ -50,6 +50,7 @@ public class PartsModel
 				nameArray[a][2] = number;
 				nameArray[a][3] = amount;
 				nameArray[a][4] = this.getUnitPart();
+				nameArray[a][6] = external;
 				if(vendor.equalsIgnoreCase(""))
 				{
 					a = nameArray.length;
@@ -76,14 +77,14 @@ public class PartsModel
 		{
 			if(g == index)
 			{
-				text = (nameArray[g][0] + " " + nameArray[g][1] + " " + nameArray[g][2] + " " + nameArray[g][3] + " " + nameArray[g][4] + " " + nameArray[g][5]);
+				text = (nameArray[g][0] + " " + nameArray[g][1] + " " + nameArray[g][2] + " " + nameArray[g][3] + " " + nameArray[g][4] + " " + nameArray[g][5] + " " + nameArray[g][6]);
 				return text;
 			}
 		}
 		return "N/A";
 	}
 	
-	public int editPart(String id, String name, String number, String amount, String vendor, String copyid, String copyname, String copynumber, String copyamount, String copyvendor)
+	public int editPart(String id, String name, String number, String amount, String vendor, String external, String copyid, String copyname, String copynumber, String copyamount, String copyvendor, String copyexternal)
 	{
 		for(int e = 0; e < nameArray.length; e++)
 		{
@@ -92,7 +93,7 @@ public class PartsModel
 				System.out.println("Similar part name found, edit failed.");
 				return 1;
 			}
-			if(nameArray[e][0].equalsIgnoreCase(copyid) && nameArray[e][1].equalsIgnoreCase(copyname) && nameArray[e][2].equalsIgnoreCase(copynumber) && nameArray[e][3].equalsIgnoreCase(copyamount) && nameArray[e][5].equalsIgnoreCase(copyvendor))
+			if(nameArray[e][0].equalsIgnoreCase(copyid) && nameArray[e][1].equalsIgnoreCase(copyname) && nameArray[e][2].equalsIgnoreCase(copynumber) && nameArray[e][3].equalsIgnoreCase(copyamount))
 			{
 				nameArray[e][0] = id;
 				nameArray[e][1] = name;
@@ -100,6 +101,7 @@ public class PartsModel
 				nameArray[e][3] = amount;
 				nameArray[e][4] = this.getUnitPart();
 				nameArray[e][5] = vendor;
+				nameArray[e][6] = external;
 				return 1;
 			}
 		}
@@ -122,6 +124,8 @@ public class PartsModel
 				nameArray[d][2] = null;
 				nameArray[d][3] = null;
 				nameArray[d][4] = null;
+				nameArray[d][5] = null;
+				nameArray[d][6] = null;
 			}
 			else if(found == 1 && d < nameArray.length - 1)
 			{
@@ -130,6 +134,8 @@ public class PartsModel
 				nameArray[d][2] = nameArray[d+1][2];
 				nameArray[d][3] = nameArray[d+1][3];
 				nameArray[d][4] = nameArray[d+1][4];
+				nameArray[d][5] = nameArray[d+1][5];
+				nameArray[d][6] = nameArray[d+1][6];
 			}
 			else if(nameArray[d][1].equalsIgnoreCase(text))
 			{
@@ -139,6 +145,8 @@ public class PartsModel
 				nameArray[d][2] = nameArray[d+1][2];
 				nameArray[d][3] = nameArray[d+1][3];
 				nameArray[d][4] = nameArray[d+1][4];
+				nameArray[d][5] = nameArray[d+1][5];
+				nameArray[d][6] = nameArray[d+1][6];
 			}
 		}
 	}
@@ -157,7 +165,7 @@ public class PartsModel
 		else return 0;
 	}
 	
-	public int checkPart(String name, String number, String amount, int mode)
+	public int checkPart(String name, String number, String amount, String external, int mode)
 	{
 		if(this.getUnitPart().equalsIgnoreCase("Unknown"))
 		{
@@ -183,6 +191,11 @@ public class PartsModel
 		{
 			System.out.println("Invalid amount.");
 			return 1;
+		}
+		if(external.length() > 50)
+		{
+			System.out.println("External number too long.");
+			return 1;			
 		}
 		if(this.checkNumber(amount,mode) == 1)
 		{
