@@ -1,18 +1,18 @@
 package parts;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class PartsModel 
 {
 	private int width, height;
-	private String[][] nameArray = new String[12][6];
+	private String[][] nameArray = new String[12][7];
 	private int status = 1;
 	private String text = "";
 	private int mode = 0;
 	private Integer newid;
 	private int idAdder = 0;
 	private String unitPart = "";
+	private String location = "";
 	
 	public PartsModel()
 	{
@@ -26,14 +26,14 @@ public class PartsModel
 		{
 			return " ";
 		}
-		if(nameArray[n][4] == null)
+		if(nameArray[n][5] == null)
 		{
-			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + " " + nameArray[n][3]);
+			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][6]);
 			return this.text;
 		}
 		else
 		{
-			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][5]);
+			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][5] + ", " + nameArray[n][6]);
 			return this.text;
 		}
 	}
@@ -50,6 +50,7 @@ public class PartsModel
 				nameArray[a][2] = number;
 				nameArray[a][3] = amount;
 				nameArray[a][4] = this.getUnitPart();
+				nameArray[a][6] = this.getLocation();
 				if(vendor.equalsIgnoreCase(""))
 				{
 					a = nameArray.length;
@@ -76,7 +77,7 @@ public class PartsModel
 		{
 			if(g == index)
 			{
-				text = (nameArray[g][0] + " " + nameArray[g][1] + " " + nameArray[g][2] + " " + nameArray[g][3] + " " + nameArray[g][4] + " " + nameArray[g][5]);
+				text = (nameArray[g][0] + " " + nameArray[g][1] + " " + nameArray[g][2] + " " + nameArray[g][3] + " " + nameArray[g][4] + " " + nameArray[g][5] + " " + nameArray[g][6]);
 				return text;
 			}
 		}
@@ -92,7 +93,7 @@ public class PartsModel
 				System.out.println("Similar part name found, edit failed.");
 				return 1;
 			}
-			if(nameArray[e][0].equalsIgnoreCase(copyid) && nameArray[e][1].equalsIgnoreCase(copyname) && nameArray[e][2].equalsIgnoreCase(copynumber) && nameArray[e][3].equalsIgnoreCase(copyamount) && nameArray[e][5].equalsIgnoreCase(copyvendor))
+			if(nameArray[e][0].equalsIgnoreCase(copyid) && nameArray[e][1].equalsIgnoreCase(copyname) && nameArray[e][2].equalsIgnoreCase(copynumber) && nameArray[e][3].equalsIgnoreCase(copyamount))
 			{
 				nameArray[e][0] = id;
 				nameArray[e][1] = name;
@@ -100,6 +101,7 @@ public class PartsModel
 				nameArray[e][3] = amount;
 				nameArray[e][4] = this.getUnitPart();
 				nameArray[e][5] = vendor;
+				nameArray[e][6] = this.getLocation();
 				return 1;
 			}
 		}
@@ -122,6 +124,8 @@ public class PartsModel
 				nameArray[d][2] = null;
 				nameArray[d][3] = null;
 				nameArray[d][4] = null;
+				nameArray[d][5] = null;
+				nameArray[d][6] = null;
 			}
 			else if(found == 1 && d < nameArray.length - 1)
 			{
@@ -130,6 +134,8 @@ public class PartsModel
 				nameArray[d][2] = nameArray[d+1][2];
 				nameArray[d][3] = nameArray[d+1][3];
 				nameArray[d][4] = nameArray[d+1][4];
+				nameArray[d][5] = nameArray[d+1][5];
+				nameArray[d][6] = nameArray[d+1][6];
 			}
 			else if(nameArray[d][1].equalsIgnoreCase(text))
 			{
@@ -139,6 +145,8 @@ public class PartsModel
 				nameArray[d][2] = nameArray[d+1][2];
 				nameArray[d][3] = nameArray[d+1][3];
 				nameArray[d][4] = nameArray[d+1][4];
+				nameArray[d][5] = nameArray[d+1][5];
+				nameArray[d][6] = nameArray[d+1][6];
 			}
 		}
 	}
@@ -161,7 +169,12 @@ public class PartsModel
 	{
 		if(this.getUnitPart().equalsIgnoreCase("Unknown"))
 		{
-			System.out.println("Part unit cannot be Unknown");
+			System.out.println("Part unit cannot be Unknown.");
+			return 1;
+		}
+		if(this.getLocation().equalsIgnoreCase("Unknown"))
+		{
+			System.out.println("Location cannot be Unknown.");
 			return 1;
 		}
 		if(name.equalsIgnoreCase(""))
@@ -230,8 +243,18 @@ public class PartsModel
 	{
 		this.unitPart = part;
 	}
+	
+	public String getLocation()
+	{
+		return this.location;
+	}
+	
+	public void setLocation(String location)
+	{
+		this.location = location;
+	}
 
-	public int getWidth() 
+	public int getWidth()
 	{
 		return this.width;
 	}
