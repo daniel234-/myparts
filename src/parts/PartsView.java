@@ -101,12 +101,12 @@ public class PartsView extends JFrame
 	public void refreshList() 
 	{
 		listModel.clear();
-		for(int n = 0; n < 10; n++)
+		for(int n = 0; n < 12; n++)
 		{
 			String text = model.refresh(n);
 			if(text.equalsIgnoreCase(" "))
 			{
-				n = 10;
+				n = 12;
 			}
 			else
 			{
