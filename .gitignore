@@ -1,2 +1,7 @@
 bin
 .DS_Store
+.classpath
+.project
+.settings
+Assignment1UML.png
+Thumbs.db

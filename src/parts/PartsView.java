@@ -93,7 +93,14 @@ public class PartsView extends JFrame
 			if(event.equalsIgnoreCase("Edit"))
 			{
 				String text = model.getPart(partsList.getSelectedIndex());
-				view.editWindow(text);
+				if(text.equalsIgnoreCase("N/A"))
+				{
+					System.out.println("No element was selected. Add a part first.");
+				}
+				else
+				{
+					view.editWindow(text);
+				}
 			}
 		}
 	}

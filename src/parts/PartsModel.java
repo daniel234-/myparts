@@ -1,16 +1,18 @@
 package parts;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class PartsModel 
 {
 	private int width, height;
-	private String[][] nameArray = new String[12][5];
+	private String[][] nameArray = new String[12][6];
 	private int status = 1;
 	private String text = "";
 	private int mode = 0;
 	private Integer newid;
 	private int idAdder = 0;
+	private String unitPart = "";
 	
 	public PartsModel()
 	{
@@ -24,14 +26,14 @@ public class PartsModel
 		{
 			return " ";
 		}
-		if(nameArray[n][3] == null)
+		if(nameArray[n][4] == null)
 		{
-			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3]);
+			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + " " + nameArray[n][3]);
 			return this.text;
 		}
 		else
 		{
-			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + ", " + nameArray[n][4]);
+			text = (nameArray[n][0] + ", " + nameArray[n][1] + ", " + nameArray[n][2] + ", " + nameArray[n][3] + " " + nameArray[n][4] + ", " + nameArray[n][5]);
 			return this.text;
 		}
 	}
@@ -47,6 +49,7 @@ public class PartsModel
 				nameArray[a][1] = name;
 				nameArray[a][2] = number;
 				nameArray[a][3] = amount;
+				nameArray[a][4] = this.getUnitPart();
 				if(vendor.equalsIgnoreCase(""))
 				{
 					a = nameArray.length;
@@ -54,7 +57,7 @@ public class PartsModel
 				}
 				else
 				{
-					nameArray[a][4] = vendor;
+					nameArray[a][5] = vendor;
 					a = nameArray.length;
 					continue;
 				}
@@ -73,11 +76,11 @@ public class PartsModel
 		{
 			if(g == index)
 			{
-				text = (nameArray[g][0] + " " + nameArray[g][1] + " " + nameArray[g][2] + " " + nameArray[g][3] + " " + nameArray[g][4]);
+				text = (nameArray[g][0] + " " + nameArray[g][1] + " " + nameArray[g][2] + " " + nameArray[g][3] + " " + nameArray[g][4] + " " + nameArray[g][5]);
 				return text;
 			}
 		}
-		return " ";
+		return "N/A";
 	}
 	
 	public int editPart(String id, String name, String number, String amount, String vendor, String copyid, String copyname, String copynumber, String copyamount, String copyvendor)
@@ -89,14 +92,14 @@ public class PartsModel
 				System.out.println("Similar part name found, edit failed.");
 				return 1;
 			}
-			if(nameArray[e][0].equalsIgnoreCase(copyid) && nameArray[e][1].equalsIgnoreCase(copyname) && nameArray[e][2].equalsIgnoreCase(copynumber) && nameArray[e][3].equalsIgnoreCase(copyamount) && nameArray[e][4].equalsIgnoreCase(copyvendor))
+			if(nameArray[e][0].equalsIgnoreCase(copyid) && nameArray[e][1].equalsIgnoreCase(copyname) && nameArray[e][2].equalsIgnoreCase(copynumber) && nameArray[e][3].equalsIgnoreCase(copyamount) && nameArray[e][5].equalsIgnoreCase(copyvendor))
 			{
 				nameArray[e][0] = id;
 				nameArray[e][1] = name;
 				nameArray[e][2] = number;
 				nameArray[e][3] = amount;
-				nameArray[e][4] = vendor;
-				e = nameArray.length;
+				nameArray[e][4] = this.getUnitPart();
+				nameArray[e][5] = vendor;
 				return 1;
 			}
 		}
@@ -156,6 +159,11 @@ public class PartsModel
 	
 	public int checkPart(String name, String number, String amount, int mode)
 	{
+		if(this.getUnitPart().equalsIgnoreCase("Unknown"))
+		{
+			System.out.println("Part unit cannot be Unknown");
+			return 1;
+		}
 		if(name.equalsIgnoreCase(""))
 		{
 			System.out.println("Invalid name.");
@@ -211,6 +219,16 @@ public class PartsModel
 	{
 		newid = new Integer(1 + idAdder);
 		return Integer.toUnsignedString(newid);
+	}
+
+	public String getUnitPart()
+	{
+		return this.unitPart;
+	}
+	
+	public void setUnitPart(String part)
+	{
+		this.unitPart = part;
 	}
 
 	public int getWidth() 

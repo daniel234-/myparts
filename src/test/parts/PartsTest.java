@@ -15,7 +15,7 @@ public class PartsTest {
 	{	
 		//fail("Not yet implemented");
 		PartsModel model = new PartsModel();
-		model.addPart("name","123","1","vendor");
+		model.addPart("1","name","123","1","vendor");
 		String text = model.getPart(0);
 		Scanner scan = new Scanner(text);
 		String result = scan.next();
@@ -28,8 +28,8 @@ public class PartsTest {
 	{	
 		//fail("Not yet implemented");
 		PartsModel model = new PartsModel();
-		model.addPart("name","123","1","vendor");
-		int result = model.editPart("n@me", "1234", "2", "vendor","name","123","1","vendor");
+		model.addPart("1","name","123","1","vendor");
+		int result = model.editPart("1","n@me", "1234", "2", "vendor","1","name","123","1","vendor");
 		assertTrue(result==1);
 	}
 	
@@ -38,8 +38,8 @@ public class PartsTest {
 	{	
 		//fail("Not yet implemented");
 		PartsModel model = new PartsModel();
-		model.addPart("name","123","1","vendor");
-		model.addPart("name","123","-1","vendor");
+		model.addPart("1","name","123","1","vendor");
+		model.addPart("1","name","123","-1","vendor");
 		String text = model.refresh(1);
 		System.out.println(text);
 		assertTrue(text.equalsIgnoreCase(" "));
