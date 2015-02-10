@@ -15,7 +15,7 @@ public class PartsDetailView extends JFrame
 	private PartsModel model;
 	private GridBagLayout partLayout;
 	private JButton finishButton;
-	private JTextField field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11;
+	private JTextField field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13;
 	private GridBagConstraints g = new GridBagConstraints();
 	private int mode;
 	private String copy;
@@ -35,7 +35,7 @@ public class PartsDetailView extends JFrame
 		finishButton.setFont(bigFont);
 		g.fill = GridBagConstraints.NONE;
 		g.gridx = 0;
-		g.gridy = 6;
+		g.gridy = 7;
 		g.gridwidth = 3;
 		g.anchor = GridBagConstraints.PAGE_END;
 		this.add(finishButton,g);
@@ -138,6 +138,22 @@ public class PartsDetailView extends JFrame
 		g.gridy = 5;
 		g.gridwidth = 1;
 		this.add(field11,g);
+		
+		field12 = new JTextField("Part External #:");
+		field12.setFont(bigFont);
+		field12.setEditable(false);
+		g.gridx = 0;
+		g.gridy = 6;
+		g.gridwidth = 1;
+		this.add(field12,g);
+		
+		field13 = new JTextField("",10);
+		field13.setFont(bigFont);
+		field13.setEditable(true);
+		g.gridx = 1;
+		g.gridy = 6;
+		g.gridwidth = 1;
+		this.add(field13,g);
 		
 		this.setVisible(true);
 		model.canOpen(0);
@@ -247,7 +263,6 @@ public class PartsDetailView extends JFrame
 		this.add(field10,g);
 		
 		field11 = new JTextField(scan.next(),10);
-		scan.close();
 		field11.setFont(bigFont);
 		field11.setEditable(true);
 		g.gridx = 1;
@@ -255,19 +270,36 @@ public class PartsDetailView extends JFrame
 		g.gridwidth = 1;
 		this.add(field11,g);
 		
+		field12 = new JTextField("Part External #:");
+		field12.setFont(bigFont);
+		field12.setEditable(false);
+		g.gridx = 0;
+		g.gridy = 6;
+		g.gridwidth = 1;
+		this.add(field12,g);
+		
+		field13 = new JTextField(scan.next(),10);
+		field13.setFont(bigFont);
+		field13.setEditable(true);
+		g.gridx = 1;
+		g.gridy = 6;
+		g.gridwidth = 1;
+		this.add(field13,g);
+		
+		scan.close();
 		this.setVisible(true);
 		model.canOpen(0);
 	}
 	
 	public int checkInput()
 	{
-		if(model.checkPart(field5.getText(),field7.getText(),field9.getText(),mode) == 1)
+		if(model.checkPart(field5.getText(),field7.getText(),field9.getText(),field13.getText(),mode) == 1)
 		{
 			return 1;
 		}
 		if(mode==1)
 		{
-			model.addPart(field3.getText(),field5.getText(),field7.getText(),field9.getText(),field11.getText());
+			model.addPart(field3.getText(),field5.getText(),field7.getText(),field9.getText(),field11.getText(),field13.getText());
 		}
 		if(mode==2)
 		{
@@ -284,11 +316,12 @@ public class PartsDetailView extends JFrame
 			}
 			
 			String copyvendor = scan.next();
+			String copyexternal = scan.next();
 			scan.close();
-			int check = model.editPart(field3.getText(),field5.getText(),field7.getText(),field9.getText(),field11.getText(),copyid,copyname,copynumber,copyamount,copyvendor);
+			int check = model.editPart(field3.getText(),field5.getText(),field7.getText(),field9.getText(),field11.getText(),field13.getText(),copyid,copyname,copynumber,copyamount,copyvendor,copyexternal);
 			if(check==0)
 			{
-				model.addPart(field3.getText(),field5.getText(),field7.getText(),field9.getText(),field11.getText());
+				model.addPart(field3.getText(),field5.getText(),field7.getText(),field9.getText(),field11.getText(),field13.getText());
 			}
 		}
 		this.windowCleanUp();
@@ -309,6 +342,8 @@ public class PartsDetailView extends JFrame
 		this.remove(field9);
 		this.remove(field10);
 		this.remove(field11);
+		this.remove(field12);
+		this.remove(field13);
 		model.canOpen(1);
 	}
 	
