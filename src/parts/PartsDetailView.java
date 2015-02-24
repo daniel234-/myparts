@@ -1,22 +1,22 @@
 package parts;
 
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.util.Scanner;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class PartsDetailView extends JFrame
 {
 	private PartsModel model;
-	private GridBagLayout partLayout;
+	private BoxLayout partLayout;
 	private JButton finishButton;
 	private JTextField field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14;
-	private GridBagConstraints g = new GridBagConstraints();
+	private JPanel panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8;
 	private int mode;
 	private String copy;
 	private Font bigFont = new Font("Serif", Font.PLAIN, 20);
@@ -30,146 +30,133 @@ public class PartsDetailView extends JFrame
 		super("Detail Part View");
 		this.model = model;
 		
-		partLayout = new GridBagLayout();
+		partLayout = new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS);
 		this.setLayout(partLayout); 
 		
 		finishButton = new JButton("Finish");
 		finishButton.setFont(bigFont);
-		g.fill = GridBagConstraints.NONE;
-		g.gridx = 0;
-		g.gridy = 8;
-		g.gridwidth = 3;
-		g.anchor = GridBagConstraints.PAGE_END;
-		this.add(finishButton,g);
+		this.add(finishButton);
 	}
 	
 	public void addWindow()
 	{	
 		mode = 1;
 		
+		panel1 = new JPanel();
+		panel1.setLayout(new BoxLayout(panel1, BoxLayout.LINE_AXIS));
+		
 		field1 = new JTextField("Please Enter New Part Information");
 		field1.setFont(bigFont);
 		field1.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 0;
-		g.gridwidth = 3;
-		this.add(field1,g);
+		panel1.add(field1);
+		
+		this.add(panel1);
+		
+		panel2 = new JPanel();
+		panel2.setLayout(new BoxLayout(panel2, BoxLayout.LINE_AXIS));
 		
 		field2 = new JTextField("         Part ID:");
 		field2.setFont(bigFont);
 		field2.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 1;
-		g.gridwidth = 1;
-		this.add(field2,g);
+		panel2.add(field2);
 		
 		field3 = new JTextField(model.getID(),10);
 		field3.setFont(bigFont);
 		field3.setEditable(false);
-		g.gridx = 1;
-		g.gridy = 1;
-		g.gridwidth = 1;
-		this.add(field3,g);
+		panel2.add(field3);
+		
+		this.add(panel2);
+		
+		panel3 = new JPanel();
+		panel3.setLayout(new BoxLayout(panel3, BoxLayout.LINE_AXIS));
 		
 		field4 = new JTextField("    Part Name:");
 		field4.setFont(bigFont);
 		field4.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 2;
-		g.gridwidth = 1;
-		this.add(field4,g);
+		panel3.add(field4);
 		
 		field5 = new JTextField("",10);
 		field5.setFont(bigFont);
 		field5.setEditable(true);
-		g.gridx = 1;
-		g.gridy = 2;
-		g.gridwidth = 1;
-		this.add(field5,g);
+		panel3.add(field5);
+		
+		this.add(panel3);
+		
+		panel4 = new JPanel();
+		panel4.setLayout(new BoxLayout(panel4, BoxLayout.LINE_AXIS));
 		
 		field6 = new JTextField("Part Number:");
 		field6.setFont(bigFont);
 		field6.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 3;
-		g.gridwidth = 1;
-		this.add(field6,g);
+		panel4.add(field6);
 		
 		field7 = new JTextField("",10);
 		field7.setFont(bigFont);
 		field7.setEditable(true);
-		g.gridx = 1;
-		g.gridy = 3;
-		g.gridwidth = 1;
-		this.add(field7,g);
+		panel4.add(field7);
+		
+		this.add(panel4);
+		
+		panel5 = new JPanel();
+		panel5.setLayout(new BoxLayout(panel5, BoxLayout.LINE_AXIS));
 		
 		field8 = new JTextField(" Part Amount:");
 		field8.setFont(bigFont);
 		field8.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 4;
-		g.gridwidth = 1;
-		this.add(field8,g);
+		panel5.add(field8);
 		
 		field9 = new JTextField("",10);
 		field9.setFont(bigFont);
 		field9.setEditable(true);
-		g.gridx = 1;
-		g.gridy = 4;
-		g.gridwidth = 1;
-		this.add(field9,g);
+		panel5.add(field9);
 
 		unitList.setSelectedIndex(2);
-		g.gridx = 2;
-		g.gridy = 4;
-		g.gridwidth = 1;
-		this.add(unitList,g);
+		panel5.add(unitList);
+		
+		this.add(panel5);
 
+		panel6 = new JPanel();
+		panel6.setLayout(new BoxLayout(panel6, BoxLayout.LINE_AXIS));
+		
 		field10 = new JTextField(" Part Vendor:");
 		field10.setFont(bigFont);
 		field10.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 5;
-		g.gridwidth = 1;
-		this.add(field10,g);
+		panel6.add(field10);
 		
 		field11 = new JTextField("",10);
 		field11.setFont(bigFont);
 		field11.setEditable(true);
-		g.gridx = 1;
-		g.gridy = 5;
-		g.gridwidth = 1;
-		this.add(field11,g);
+		panel6.add(field11);
+		
+		this.add(panel6);
+		
+		panel7 = new JPanel();
+		panel7.setLayout(new BoxLayout(panel7, BoxLayout.LINE_AXIS));
 		
 		field12 = new JTextField("Part External #:");
 		field12.setFont(bigFont);
 		field12.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 6;
-		g.gridwidth = 1;
-		this.add(field12,g);
+		panel7.add(field12);
 		
 		field13 = new JTextField("",10);
 		field13.setFont(bigFont);
 		field13.setEditable(true);
-		g.gridx = 1;
-		g.gridy = 6;
-		g.gridwidth = 1;
-		this.add(field13,g);
+		panel7.add(field13);
+		
+		this.add(panel7);
+		
+		panel8 = new JPanel();
+		panel8.setLayout(new BoxLayout(panel8, BoxLayout.LINE_AXIS));
 		
 		field14 = new JTextField("Part Location:");
 		field14.setFont(bigFont);
 		field14.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 7;
-		g.gridwidth = 1;
-		this.add(field14,g);
+		panel8.add(field14);
 		
 		locationList.setSelectedIndex(3);
-		g.gridx = 1;
-		g.gridy = 7;
-		g.gridwidth = 1;
-		this.add(locationList,g);
+		panel8.add(locationList);
+		
+		this.add(panel8);
 		
 		this.setVisible(true);
 		model.canOpen(0);
@@ -182,77 +169,73 @@ public class PartsDetailView extends JFrame
 		
 		Scanner scan = new Scanner(text);
 		
+		panel1 = new JPanel();
+		panel1.setLayout(new BoxLayout(panel1, BoxLayout.LINE_AXIS));
+		
 		field1 = new JTextField("Please Edit This Part Information");
 		field1.setFont(bigFont);
 		field1.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 0;
-		g.gridwidth = 3;
-		this.add(field1,g);
+		panel1.add(field1);
+		
+		this.add(panel1);
+		
+		panel2 = new JPanel();
+		panel2.setLayout(new BoxLayout(panel2, BoxLayout.LINE_AXIS));
 		
 		field2 = new JTextField("         Part ID:");
 		field2.setFont(bigFont);
 		field2.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 1;
-		g.gridwidth = 1;
-		this.add(field2,g);
+		panel2.add(field2);
 		
 		field3 = new JTextField(scan.next(),10);
 		field3.setFont(bigFont);
 		field3.setEditable(false);
-		g.gridx = 1;
-		g.gridy = 1;
-		g.gridwidth = 1;
-		this.add(field3,g);
+		panel2.add(field3);
+		
+		this.add(panel2);
+		
+		panel3 = new JPanel();
+		panel3.setLayout(new BoxLayout(panel3, BoxLayout.LINE_AXIS));
 		
 		field4 = new JTextField("    Part Name:");
 		field4.setFont(bigFont);
 		field4.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 2;
-		g.gridwidth = 1;
-		this.add(field4,g);
+		panel3.add(field4);
 		
 		field5 = new JTextField(scan.next(),10);
 		field5.setFont(bigFont);
 		field5.setEditable(true);
-		g.gridx = 1;
-		g.gridy = 2;
-		g.gridwidth = 1;
-		this.add(field5,g);
+		panel3.add(field5);
+		
+		this.add(panel3);
+		
+		panel4 = new JPanel();
+		panel4.setLayout(new BoxLayout(panel4, BoxLayout.LINE_AXIS));
 		
 		field6 = new JTextField("Part Number:");
 		field6.setFont(bigFont);
 		field6.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 3;
-		g.gridwidth = 1;
-		this.add(field6,g);
+		panel4.add(field6);
 		
 		field7 = new JTextField(scan.next(),10);
 		field7.setFont(bigFont);
 		field7.setEditable(true);
-		g.gridx = 1;
-		g.gridy = 3;
-		g.gridwidth = 1;
-		this.add(field7,g);
+		panel4.add(field7);
+		
+		this.add(panel4);
+		
+		panel5 = new JPanel();
+		panel5.setLayout(new BoxLayout(panel5, BoxLayout.LINE_AXIS));
 
 		field8 = new JTextField(" Part Amount:");
 		field8.setFont(bigFont);
 		field8.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 4;
-		g.gridwidth = 1;
-		this.add(field8,g);
+		panel5.add(field8);
 		
 		field9 = new JTextField(scan.next(),10);
 		field9.setFont(bigFont);
 		field9.setEditable(true);
-		g.gridx = 1;
-		g.gridy = 4;
-		g.gridwidth = 1;
-		this.add(field9,g);
+		panel5.add(field9);
 		
 		String unitName = scan.next();
 		
@@ -265,50 +248,47 @@ public class PartsDetailView extends JFrame
 		{
 			unitList.setSelectedIndex(1);
 		}
-		g.gridx = 2;
-		g.gridy = 4;
-		g.gridwidth = 1;
-		this.add(unitList,g);
+		panel5.add(unitList);
+		
+		this.add(panel5);
+		
+		panel6 = new JPanel();
+		panel6.setLayout(new BoxLayout(panel6, BoxLayout.LINE_AXIS));
 		
 		field10 = new JTextField(" Part Vendor:");
 		field10.setFont(bigFont);
 		field10.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 5;
-		g.gridwidth = 1;
-		this.add(field10,g);
+		panel6.add(field10);
 		
 		field11 = new JTextField(scan.next(),10);
 		field11.setFont(bigFont);
 		field11.setEditable(true);
-		g.gridx = 1;
-		g.gridy = 5;
-		g.gridwidth = 1;
-		this.add(field11,g);
+		panel6.add(field11);
+		
+		this.add(panel6);
+		
+		panel7 = new JPanel();
+		panel7.setLayout(new BoxLayout(panel7, BoxLayout.LINE_AXIS));
 
 		field12 = new JTextField("Part External #:");
 		field12.setFont(bigFont);
 		field12.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 6;
-		g.gridwidth = 1;
-		this.add(field12,g);
+		panel7.add(field12);
 		
 		field13 = new JTextField(scan.next(),10);
 		field13.setFont(bigFont);
 		field13.setEditable(true);
-		g.gridx = 1;
-		g.gridy = 6;
-		g.gridwidth = 1;
-		this.add(field13,g);
+		panel7.add(field13);
+		
+		this.add(panel7);
+		
+		panel8 = new JPanel();
+		panel8.setLayout(new BoxLayout(panel8, BoxLayout.LINE_AXIS));
 		
 		field14 = new JTextField("Part Location:");
 		field14.setFont(bigFont);
 		field14.setEditable(false);
-		g.gridx = 0;
-		g.gridy = 7;
-		g.gridwidth = 1;
-		this.add(field14,g);
+		panel8.add(field14);
 
 		scan.next();
 		String locationName = scan.next();
@@ -330,10 +310,9 @@ public class PartsDetailView extends JFrame
 				locationList.setSelectedIndex(1);
 			}
 		}
-		g.gridx = 1;
-		g.gridy = 7;
-		g.gridwidth = 1;
-		this.add(locationList,g);
+		panel8.add(locationList);
+		
+		this.add(panel8);
 		
 		scan.close();
 		this.setVisible(true);
@@ -380,20 +359,14 @@ public class PartsDetailView extends JFrame
 	public void windowCleanUp()
 	{
 		this.setVisible(false);
-		this.remove(field1);
-		this.remove(field2);
-		this.remove(field3);
-		this.remove(field4);
-		this.remove(field5);
-		this.remove(field6);
-		this.remove(field7);
-		this.remove(field8);
-		this.remove(field9);
-		this.remove(field10);
-		this.remove(field11);
-		this.remove(field12);
-		this.remove(field13);
-		this.remove(field14);
+		this.remove(panel1);
+		this.remove(panel2);
+		this.remove(panel3);
+		this.remove(panel4);
+		this.remove(panel5);
+		this.remove(panel6);
+		this.remove(panel7);
+		this.remove(panel8);
 		model.canOpen(1);
 	}
 	
